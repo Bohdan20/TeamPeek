@@ -1,17 +1,5 @@
 import styled from '@emotion/styled';
-import { Box, Paper, Alert, Typography } from '@mui/material';
-import Grid from '@mui/material/Grid';
-
-export const CenteredContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 48px;
-  width: 100%;
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-`;
+import { Box, Alert, Typography } from '@mui/material';
 
 export const CenteredTitle = styled(Typography)`
   text-align: center;
@@ -32,16 +20,6 @@ export const CenteredBox = styled(Box)`
   text-align: center;
 `;
 
-export const PlayerCard = styled(Paper)`
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 260px;
-  min-height: 240px;
-  box-sizing: border-box;
-`;
-
 export const CenteredAlert = styled(Alert)`
   margin-top: 16px;
   margin-left: auto;
@@ -52,8 +30,3 @@ export const CenteredAlert = styled(Alert)`
     display: none;
   }
 `;
-
-export const CenteredGrid = styled(Grid)`
-  margin-top: 32px;
-  justify-content: stretch;
-`; 

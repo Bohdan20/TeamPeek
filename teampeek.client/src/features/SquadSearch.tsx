@@ -1,10 +1,5 @@
 import React, { useState } from 'react';
-import {
-  CenteredTitle,
-  SearchBarWrapper,
-  CenteredBox,
-  CenteredAlert
-} from './SquadSearch.styles';
+import { CenteredTitle, SearchBarWrapper, CenteredBox, CenteredAlert } from './SquadSearch.styles';
 import type { PlayerInfo, SquadResult } from '../models';
 import {
   TextField,
@@ -19,7 +14,7 @@ import {
   TableBody,
   TableRow,
   TableCell,
-  Paper
+  Paper,
 } from '@mui/material';
 
 const SquadSearch: React.FC = () => {
@@ -45,32 +40,48 @@ const SquadSearch: React.FC = () => {
   };
 
   return (
-    <Container maxWidth="md">
-      <CenteredTitle variant="h4" gutterBottom>
+    <Container maxWidth='md'>
+      <CenteredTitle
+        variant='h4'
+        gutterBottom>
         Premier League Squad Finder
       </CenteredTitle>
       <SearchBarWrapper>
-          <Box display="flex" gap={2}>
-            <TextField
-              label="Enter team name or nickname"
-              variant="outlined"
-              value={team}
-              onChange={(e: any) => setTeam(e.target.value)}
-              onKeyDown={(e: any) => { if (e.key === 'Enter') handleSearch(); }}
-              fullWidth
-            />
-            <Button variant="contained" color="primary" onClick={handleSearch} disabled={loading || !team.trim()}>
-              Search
-            </Button>
-          </Box>
+        <Box
+          display='flex'
+          gap={2}>
+          <TextField
+            label='Enter team name or nickname'
+            variant='outlined'
+            value={team}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTeam(e.target.value)}
+            onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
+              if (e.key === 'Enter') handleSearch();
+            }}
+            fullWidth
+          />
+          <Button
+            variant='contained'
+            color='primary'
+            onClick={handleSearch}
+            disabled={loading || !team.trim()}>
+            Search
+          </Button>
+        </Box>
       </SearchBarWrapper>
-      {loading && <CenteredBox><CircularProgress /></CenteredBox>}
-      {error && <CenteredAlert severity="error">{error}</CenteredAlert>}
+      {loading && (
+        <CenteredBox>
+          <CircularProgress />
+        </CenteredBox>
+      )}
+      {error && <CenteredAlert severity='error'>{error}</CenteredAlert>}
       {result && !result.success && (
-        <CenteredAlert severity="warning">{result.error || 'Team not found.'}</CenteredAlert>
+        <CenteredAlert severity='warning'>{result.error || 'Team not found.'}</CenteredAlert>
       )}
       {result && result.success && result.players && result.players.length > 0 && (
-        <TableContainer component={Paper} sx={{ mt: 4 }}>
+        <TableContainer
+          component={Paper}
+          sx={{ mt: 4 }}>
           <Table>
             <TableHead>
               <TableRow>
@@ -88,7 +99,10 @@ const SquadSearch: React.FC = () => {
                 return (
                   <TableRow key={player.id}>
                     <TableCell>
-                      <Avatar src={player.profilePicture} alt={player.name} />
+                      <Avatar
+                        src={player.profilePicture}
+                        alt={player.name}
+                      />
                     </TableCell>
                     <TableCell>{firstName}</TableCell>
                     <TableCell>{surname}</TableCell>
@@ -102,10 +116,10 @@ const SquadSearch: React.FC = () => {
         </TableContainer>
       )}
       {result && result.success && (!result.players || result.players.length === 0) && (
-        <CenteredAlert severity="info">No squad information available for this team.</CenteredAlert>
+        <CenteredAlert severity='info'>No squad information available for this team.</CenteredAlert>
       )}
     </Container>
   );
 };
 
-export default SquadSearch; 
+export default SquadSearch;
