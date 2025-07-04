@@ -2,8 +2,8 @@ name: Build and deploy ASP.Net Core app to Azure Web App - teampeek-service
 
 on:
   push:
-    tags:
-      - 'deploy*'
+    branches:
+      - release/*
   workflow_dispatch:
 
 jobs:
@@ -60,17 +60,11 @@ jobs:
         with:
           name: .net-app
 
-      - name: Login to Azure
-        uses: azure/login@v2
-        with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_0D9C38526FE64B529CC1BC390C1E64FB }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_7E8A680284F4445A95FAEA3654A8CCC8 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_587D988BB7A643C9A0A7E16AB373E458 }}
-
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'teampeek-service'
           slot-name: 'Production'
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
           package: .
