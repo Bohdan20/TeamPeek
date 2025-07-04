@@ -2,8 +2,8 @@ name: Build and deploy ASP.Net Core app to Azure Web App - teampeek-service
 
 on:
   push:
-    branches:
-      - release/*
+    tags:
+      - 'deploy*'
   workflow_dispatch:
 
 jobs:
