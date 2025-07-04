@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using TeamPeek.SportsDbClient;
+using TeamPeek.SportsDbClient.Contracts;
 
 namespace TeamPeek.Server.Teams.GetTeamSquad
 {
@@ -60,12 +61,12 @@ namespace TeamPeek.Server.Teams.GetTeamSquad
 
             var officialName = MapToOfficialTeamName(request.Search);
             var teamId = await apiClient.GetTeamIdAsync(officialName, token);
-            if (teamId == null)
+            if (string.IsNullOrWhiteSpace(teamId))
             {
                 return new SquadResponse { Success = false, Error = $"Team '{officialName}' not found." };
             }
 
-            var players = await apiClient.GetSquadPlayersAsync(teamId.Value, token);
+            var players = await apiClient.GetSquadPlayersAsync(teamId, token);
             if (players == null)
             {
                 return new SquadResponse { Success = false, Error = "Could not fetch squad information." };

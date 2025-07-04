@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace TeamPeek.SportsDbClient
+namespace TeamPeek.SportsDbClient.Contracts
 {
     public class PlayerDetails
     {
