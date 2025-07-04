@@ -13,25 +13,13 @@
 - **3rd-Party Integration:** Uses a sports data provider (e.g., TheSportsDB) to retrieve up-to-date squad information.
 - **CI/CD:** Automated build and deployment pipeline using GitHub Actions and Azure Web Apps. See `.github/workflows/release.yml` for details.
 
-## Technical Considerations
-
-- Normalizes and validates player data from the external API.
-- Implements error handling for invalid teams or API issues.
+### CI/CD & Deployment
+- GitHub Actions workflow automates build and deployment steps
+- On push to `release/*` branches, the app is built and deployed to Azure Web App
+- Secrets are managed securely in GitHub
 
 ## High-Level Design
 
-```mermaid
-graph TD
-  A["User (Browser)"] -->|"Searches for team"| B["React Frontend"]
-  B -->|"API Request"| C[".NET Backend API"]
-  C -->|"Fetches squad"| D["3rd-Party Sports API"]
-  D -->|"Squad data"| C
-  C -->|"Player details"| B
-  B -->|"Displays squad"| A
-```
-![Diagram](flow-diagram.png)
-
-## Data Flow
 1. User enters a team name or nickname in the frontend
 2. Frontend sends a request to the backend API
 3. Backend maps nickname (if needed) and queries the 3rd-party sports API
@@ -39,10 +27,7 @@ graph TD
 5. Backend returns player details to the frontend
 6. Frontend displays the squad information to the user
 
-### CI/CD & Deployment
-- GitHub Actions workflow automates build and deployment steps
-- On push to `release/*` branches, the app is built and deployed to Azure Web App
-- Secrets are managed securely in GitHub
+![Diagram](flow-diagram.png)
 
 ## Technical Challenges & Considerations
 - **3rd-Party API Limitations:** 
@@ -50,7 +35,7 @@ graph TD
    - TheSportsDB limits squad search to 10 players for free licence.
 - **Nickname Mapping:** Ensuring comprehensive and accurate mapping was hard to achieve and requires further investigation. Nickname mapping support is limited or missing by most of free 3rd-Party APIs and thus was implemented from scratch. Nicknames dataset is quite small but should be enough to cover teams from EPL 24/25
 - **Data Consistency:** Player data (e.g., missing images or positions) relies on 3rd party and might be missing for some players
-- UI was implemented with a @mui/material to speed up the development.
+- **UI** was implemented with a `@mui/material` to speed up the development.
 
 ## Conclusion
 This design demonstrates the ability to:
