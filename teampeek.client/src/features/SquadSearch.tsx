@@ -55,8 +55,8 @@ const SquadSearch: React.FC = () => {
               label="Enter team name or nickname"
               variant="outlined"
               value={team}
-              onChange={e => setTeam(e.target.value)}
-              onKeyDown={e => { if (e.key === 'Enter') handleSearch(); }}
+              onChange={(e: any) => setTeam(e.target.value)}
+              onKeyDown={(e: any) => { if (e.key === 'Enter') handleSearch(); }}
               fullWidth
             />
             <Button variant="contained" color="primary" onClick={handleSearch} disabled={loading || !team.trim()}>
